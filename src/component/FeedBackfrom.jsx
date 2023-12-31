@@ -1,13 +1,25 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Card from './shared/Card';
 import Button from './shared/Button';
+import FeedbackContext from '../context/FeedbackContext';
 import RatingSelect from './RatingSelect';
 
-const FeedBackfrom = ({ handleAdd }) => {
+const FeedBackfrom = () => {
   const [text, setText] = useState('');
   const [btnDisabled, setBtndisabled] = useState(true);
   const [message, setMessage] = useState('');
   const [rating, setRating] = useState(10);
+
+  const { addFeedback, feedbackEdit, updateFeeddback } =
+    useContext(FeedbackContext);
+
+  useEffect(() => {
+    if (feedbackEdit.edit === true) {
+      setBtndisabled(false);
+      setText(feedbackEdit.item.text);
+      setRating(feedbackEdit.item.rating);
+    }
+  }, [feedbackEdit]);
 
   const handleTextchange = (e) => {
     if (text === '') {
@@ -31,8 +43,13 @@ const FeedBackfrom = ({ handleAdd }) => {
         text,
         rating,
       };
+      if (feedbackEdit.edit === true) {
+        updateFeeddback(feedbackEdit.item.id, newFeedback);
+      } else {
+        addFeedback(newFeedback);
+      }
       // console.log(newFeedback);
-      handleAdd(newFeedback);
+      addFeedback(newFeedback);
       setText('');
     }
   };
@@ -40,7 +57,7 @@ const FeedBackfrom = ({ handleAdd }) => {
   return (
     <Card>
       <form onSubmit={handleSubmit}>
-        <h2>How Wouold you Rate Your service With Us ?</h2>
+        <h2>How Would you Rate Your service With Us ?</h2>
         <RatingSelect
           select={(rating) => {
             setRating(rating);
