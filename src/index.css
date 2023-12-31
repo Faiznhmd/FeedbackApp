@@ -82,6 +82,16 @@ h1 {
   background: none;
   border: none;
 }
+.edit {
+  position: absolute;
+  top: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.edit {
+  right: 40px;
+}
 .feedback-stats {
   display: flex;
   justify-content: space-between;
