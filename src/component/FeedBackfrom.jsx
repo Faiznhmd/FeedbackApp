@@ -21,18 +21,18 @@ const FeedBackfrom = () => {
     }
   }, [feedbackEdit]);
 
-  const handleTextchange = (e) => {
-    if (text === '') {
+  const handleTextchange = ({ target: { value } }) => {
+    if (value === '') {
       setBtndisabled(true);
       setMessage(null);
-    } else if (text !== '' && text.trim().length <= 10) {
-      setMessage('Text must be atleast 10 charcters');
+    } else if (value.trim().length < 10) {
+      setMessage('Text must be at least 10 characters');
       setBtndisabled(true);
     } else {
       setMessage(null);
       setBtndisabled(false);
     }
-    setText(e.target.value);
+    setText(value);
   };
 
   //handlesubmit
@@ -48,8 +48,8 @@ const FeedBackfrom = () => {
       } else {
         addFeedback(newFeedback);
       }
-      // console.log(newFeedback);
-      addFeedback(newFeedback);
+      setRating(10);
+      setBtndisabled(true);
       setText('');
     }
   };
