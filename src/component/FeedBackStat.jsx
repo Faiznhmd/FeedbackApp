@@ -3,7 +3,7 @@ import FeedbackContext from '../context/FeedbackContext';
 
 const FeedBackStat = () => {
   const { feedback } = useContext(FeedbackContext);
-  console.log(feedback, 'feedback ');
+  // console.log(feedback, 'feedback ');
 
   // cal rating//
   let average =
